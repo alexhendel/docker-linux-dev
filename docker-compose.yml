@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  development:
+    container_name: 'ubuntu-dev'
+    restart: unless-stopped
+    user: ${USER}:${USER}
+    env_file:
+      - .env
+    build:
+      context: ./
+      args:
+        - username=${USER}
+    hostname: ubuntu-dev
+    image: ubuntu-dev:latest
+    stdin_open: true
+    tty: true
+    network_mode: host
