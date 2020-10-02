@@ -34,6 +34,7 @@ RUN chown ${username}:${username} /home/${username}/.ssh && \
     chmod 644 /home/${username}/.ssh/* && \
     chmod 600 /home/${username}/.ssh/id_*
 USER ${username}
+RUN git config --global core.pager "less -X -F"
 RUN mkdir ~/source
 RUN sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
