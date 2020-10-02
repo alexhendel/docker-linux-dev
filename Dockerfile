@@ -36,7 +36,9 @@ RUN chown ${username}:${username} /home/${username}/.ssh && \
 USER ${username}
 RUN mkdir ~/source
 RUN sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash && \
+    sed -i 's/robbyrussell/powerlevel10k\/powerlevel10k/g' ~/.zshrc
 RUN echo "export NVM_DIR=\"\$HOME/.nvm\"" >> ~/.zshrc && \
     echo "[ -s \"\$NVM_DIR/nvm.sh\" ] && \\. \"\$NVM_DIR/nvm.sh\"" >> ~/.zshrc && \
     echo "[ -s \"\$NVM_DIR/bash_completion\" ] && \\. \"\$NVM_DIR/bash_completion\"" >> ~/.zshrc
